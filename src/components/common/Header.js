@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
-import { HeroHead, Nav, Container, NavItem, NavToggle, NavGroup, Button } from 're-bulma';
-import { Link, IndexLink } from 'react-router';
-
+import { Navbar, NavbarGroup, NavbarDivider, NavbarHeading, Button} from '@blueprintjs/core' ; 
 
 class Header extends Component {
 
     render() {
         return (
-            <HeroHead>
-                <Nav>
-                    <Container>
-                        <NavGroup align="left">
-                            <NavItem>
-                                <img src="logo.png" alt="Logo" />
-                            </NavItem>
-                        </NavGroup>
-                        <NavToggle />
-                        <NavGroup align="right" isMenu>
-                            <NavItem isActive>
-                                <IndexLink to="/">Home</IndexLink>
-                            </NavItem>
-                            <NavItem>
-                                <Link to="/login">Login</Link>
-                            </NavItem>
-                            <NavItem>
-                                <Button states="isInverted" icon="fa fa-github">Github</Button>
-                            </NavItem>
-                        </NavGroup>
-                    </Container>
-                </Nav>
-            </HeroHead>
+            <div>
+                
+                <Navbar className="pt-dark">
+                    <NavbarGroup>
+                        <NavbarHeading>React  Redux Book Search</NavbarHeading>
+                    </NavbarGroup>
+                    <NavbarGroup align="right">
+                        <Button className="pt-minimal" iconName="home" >Home</Button>
+                        <Button className="pt-minimal" iconName="document">Books</Button>
+                        <NavbarDivider />
+                        <Button className="pt-minimal" iconName="user"></Button>
+                        <Button className="pt-minimal" iconName="notifications"></Button>
+                        <Button className="pt-minimal" iconName="cog"></Button>
+                    </NavbarGroup>
+                </Navbar>
+                <hr></hr>
+            </div>
         );
 
     }

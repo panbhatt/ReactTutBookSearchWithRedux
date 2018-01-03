@@ -3,12 +3,14 @@ import { Route, IndexRoute} from 'react-router';
 import App from './components/App' ;
 
 import HomePage from './components/home/HomePage';
-import HomePage from './components/book/BookEditPage';
+import BookEditPage from './components/book/BookEdit';
+import BookListPage from './components/book/BookList'; 
 
 
-export defaut (
+export default (
     <Route path="/" component={App}>
         <IndexRoute component={HomePage}/>
         <Route path="/book/id" component={BookEditPage}/>
+        <Route path="/book" component={BookListPage}/>
     </Route>    
 ) ;
