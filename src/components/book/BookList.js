@@ -29,7 +29,7 @@ BookList.defaultProps = {
 function mapStateToProps(state,ownProps) {
     console.log("State = " + JSON.stringify(state)) ;
     return {
-        books : state.books.list
+        books : state.books.results
     };
 }
 

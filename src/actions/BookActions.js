@@ -36,3 +36,18 @@ export function loadBooksFailure(error){
             error
         }; 
     }
+
+export function searchBooks(searchText) {
+    return function(dispatch) {
+        // May be here we can specify the API call on the server to do something. get the data and. 
+        dispatch(searchBookFunction(searchText)) ;
+    }
+}  
+
+export function searchBookFunction(searchText) {
+    return { 
+        type: Constants.SEARCH_BOOK_SUCCESS,
+        searchText 
+    };
+
+}
