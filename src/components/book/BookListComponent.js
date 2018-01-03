@@ -1,5 +1,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types' ;
+import { Card}  from '@blueprintjs/core' ;
+import {  Button} from '@blueprintjs/core' ; 
 
 export default class BookListComponent extends React.Component {
 
@@ -18,6 +20,7 @@ export default class BookListComponent extends React.Component {
             return (
                 <div>
                     <br/>
+                    <Card interactive={true} elevation={Card.ELEVATION_TWO}>
                     <table>
                         <thead>
                             <tr className="box col-xs-12 col-md-12 col-lg-12">
@@ -34,11 +37,14 @@ export default class BookListComponent extends React.Component {
                                     <td style={{ width:'30px', 'textAlign' : 'center' }}>{book.id}</td>
                                     <td style={{ width:'200px','textAlign' : 'center' }}>{book.title}</td>
                                     <td style={{ width:'250px', 'textAlign': 'center' }}>{book.category}</td>
-                                    <td style={{ width:'150px' ,'textAlign' : 'center'}}></td>
+                                    <td style={{ width:'150px' ,'textAlign' : 'center'}}> 
+                                    <Button className="pt-minimal" iconName="annotation" onClick={()=> {this.props.onEdit(book.id)}} ></Button>
+                                    </td>
                                 </tr>    
                             })}
                         </tbody>
                     </table>
+                    </Card>
                 </div>
             );
         }
@@ -46,9 +52,11 @@ export default class BookListComponent extends React.Component {
 }
 
 BookListComponent.propTypes = {
-    books : PropTypes.array.isRequired 
+    books : PropTypes.array.isRequired,
+    actions : PropTypes.object
 };
 
 BookListComponent.defaultProps = {
-    books : [] 
+    books : [] ,
+    actions : {}
 };

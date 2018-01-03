@@ -1,36 +1,53 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux' ;
-import BookListComponent from './BookListComponent' ;
+import BookListComponent from './BookListComponent';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as BookActions from '../../actions/BookActions';
+import * as EditBookActions from '../../actions/EditBookActions';
 
- class BookList extends Component {
+class BookList extends Component {
 
     constructor(props) {
         super(props);
+        this.handleOnEdit = this.handleOnEdit.bind(this);
+    }
+
+    handleOnEdit(bookId) {
+        console.log("Book Id received = " + bookId);
+        this.props.actions.editBook(bookId) ;
     }
 
 
 
     render() {
         return (
-           <BookListComponent books={this.props.books}></BookListComponent>
+            <BookListComponent books={this.props.books} onEdit={this.handleOnEdit}></BookListComponent>
         );
     }
 }
 
-BookList.propTypes = { 
-    books: PropTypes.array 
-} ;
+BookList.propTypes = {
+    books: PropTypes.array,
+    actions : PropTypes.object
+};
 
-BookList.defaultProps = { 
-    books: []
-} ;
+BookList.defaultProps = {
+    books: [],
+    actions : {}
+};
 
-function mapStateToProps(state,ownProps) {
-    console.log("State = " + JSON.stringify(state)) ;
+function mapStateToProps(state, ownProps) {
+    console.log("State = " + JSON.stringify(state));
     return {
-        books : state.books.results
+        books: state.books.results
     };
 }
 
-export default connect(mapStateToProps)(BookList); 
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(EditBookActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookList); 
