@@ -41,3 +41,15 @@ export function addBook(bookData) {
         });
     };
 } 
+
+export function deleteBook(bookId) {
+    
+    return function (dispatch,getState) {
+        // May be here we can specify the API call on the server to do something. get the data and.
+        console.log("Stated = " + JSON.stringify(getState()));
+        dispatch({
+            type: Types.DEL_BOOK,
+            bookId
+        });
+    };
+} 

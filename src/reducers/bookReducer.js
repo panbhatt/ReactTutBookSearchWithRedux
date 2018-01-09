@@ -2,16 +2,14 @@ import types from '../actions/actionTypes';
 import InitialState from './initialState';
 import { List } from 'immutable';
 
-
+var maxBookId = 100;
 export default function BookReducer(state = InitialState.books, action) {
 
-    let obj = null, books, results,newBooks, newBook;
-    var maxId = 0 ; 
+    let obj = null, books, results, newBooks, newBook;
+
     switch (action.type) {
         case types.LOAD_BOOKS_SUCCESS:
             console.log("REDUCER for BOOK Success is being called. " + JSON.stringify(action.books));
-            action.books.forEach((book) => maxId = book.id > maxId ? book.id : maxId ) ;
-            console.log("MAX ID = "+ maxId) ;
             obj = Object.assign({}, state, { list: action.books, results: action.books });
             console.log("RETURING THIS SHIT " + JSON.stringify(obj));
             return obj;
@@ -38,15 +36,21 @@ export default function BookReducer(state = InitialState.books, action) {
             return obj;
 
         case types.ADD_BOOK:
-            console.log("COMING IN ADD BOOK REDUCER FUCNTION ");
+            console.log("COMING IN ADD BOOK REDUCER FUCNTION " + JSON.stringify(state.list));
             books = List(state.list);
-            let maxBookId  =0;
-            books.forEach((book) => maxBookId = book.id > maxBookId ? book.id : maxBookId ) ;
-            newBook = action.book; 
-            console.log("MAX id = "+ maxBookId) ;
-            newBook.id = ++maxBookId; 
-            newBooks = books.push(newBook).toArray()
+            newBook = action.book;
+            console.log("MAX id = " + maxBookId);
+            newBook.id = ++maxBookId;
+            newBooks = books.push(newBook).toArray();
+            console.log("New Array = " + JSON.stringify(newBooks));
             obj = Object.assign({}, state, { list: newBooks, results: newBooks });
+            return obj;
+
+        case types.DEL_BOOK:
+            console.log("COMING IN DEL BOOK REDUCER FUCNTION " + JSON.stringify(state.list));
+            books = state.list.filter(book => book.id != action.bookId ) ;
+            console.log("New Array = " + JSON.stringify(books));
+            obj = Object.assign({}, state, { list: books, results: books });
             return obj;
 
         default:

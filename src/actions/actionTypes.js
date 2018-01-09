@@ -9,7 +9,8 @@ let constants = {
     'EDIT_BOOK' : 'EDIT_BOOK' ,
     'EDIT_BOOK_SUCCESS' : 'EDIT_BOOK_SUCCESS',
 
-    'ADD_BOOK' :'ADD_BOOK' 
+    'ADD_BOOK' :'ADD_BOOK' ,
+    'DEL_BOOK' :'DEL_BOOK' 
     
 }; 
 
