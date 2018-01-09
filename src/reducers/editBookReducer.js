@@ -13,6 +13,12 @@ export default function EditBookReducer(state = {}, action) {
             console.log("RETURING THIS SHIT " + JSON.stringify(obj));
             return obj;
 
+        case types.EDIT_BOOK_SUCCESS :
+            console.log("Reducer for EDIT BOOK SUCCESS ");
+
+        
+
+
         default:
             return state;
     }

@@ -10,6 +10,7 @@ class BookList extends Component {
 
     constructor(props) {
         super(props);
+        this.state = { books: []};
         this.handleOnEdit = this.handleOnEdit.bind(this);
     }
 
@@ -18,11 +19,21 @@ class BookList extends Component {
         this.props.actions.editBook(bookId) ;
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('Next props is being received by Book List .  ') ;
+        console.log(nextProps) ;
+        if(nextProps.books.length > 0 ) {
+            this.setState({
+                books : nextProps.books
+            })
+        }
+    }
+
 
 
     render() {
         return (
-            <BookListComponent books={this.props.books} onEdit={this.handleOnEdit}></BookListComponent>
+            <BookListComponent books={this.state.books} onEdit={this.handleOnEdit}></BookListComponent>
         );
     }
 }
@@ -38,7 +49,7 @@ BookList.defaultProps = {
 };
 
 function mapStateToProps(state, ownProps) {
-    console.log("State = " + JSON.stringify(state));
+    console.log("Props is changing . State = " + JSON.stringify(state));
     return {
         books: state.books.results
     };

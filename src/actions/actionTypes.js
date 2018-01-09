@@ -4,9 +4,13 @@ let constants = {
     'LOAD_BOOKS_FAILURE' : 'LOAD_BOOKS_FAILURE',
 
     'SEARCH_BOOK_SUCCESS' : 'SEARCH_BOOK_SUCCESS',
+    'UPDATE_BOOK' : 'UPDATE_BOOK',
 
     'EDIT_BOOK' : 'EDIT_BOOK' ,
-    'EDIT_BOOK_SUCCESS' : 'EDIT_BOOK_SUCCESS'
+    'EDIT_BOOK_SUCCESS' : 'EDIT_BOOK_SUCCESS',
+
+    'ADD_BOOK' :'ADD_BOOK' 
+    
 }; 
 
 export default constants; 

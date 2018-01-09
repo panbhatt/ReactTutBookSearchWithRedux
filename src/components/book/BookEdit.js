@@ -14,7 +14,10 @@ import * as EditBookActions from '../../actions/EditBookActions';
     constructor(props) {
         super(props);
         this.state= {  };
-            
+        this.handleUpdate = this.handleUpdate.bind(this);  
+        this.handleTitleChange = this.handleTitleChange.bind(this);   
+        this.handleCategoryChange=this.handleCategoryChange.bind(this); 
+        this.handleAdd = this.handleAdd.bind(this); 
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,6 +35,33 @@ import * as EditBookActions from '../../actions/EditBookActions';
         }
     }
 
+    handleTitleChange(event) {
+        event.preventDefault();
+        let newState = Object.assign({}, this.state); 
+        newState['title']=event.target.value ;
+        this.setState(newState);
+    }
+
+    handleCategoryChange(event) {
+        event.preventDefault();
+        let newState = Object.assign({}, this.state); 
+        newState['category']=event.target.value ;
+        this.setState(newState);
+    }
+
+    handleUpdate(event) { 
+            console.log('State = ' + JSON.stringify(this.state) ) ; 
+            this.props.actions.updateBook(this.state) ;
+
+    }
+
+    handleAdd(event) { 
+        let newBook = this.state; 
+        delete newBook.id; 
+        this.props.actions.addBook(this.state) ;
+
+}
+
 
     render() {
         return (
@@ -45,17 +75,17 @@ import * as EditBookActions from '../../actions/EditBookActions';
                     >
 
                         <Label  text="Book Title"      >
-                            <InputGroup placeholder="Book Title" className="pt-intent-primary" value={this.state.title} />
+                            <InputGroup placeholder="Book Title" className="pt-intent-primary" value={this.state.title} onChange={this.handleTitleChange} />
                         </Label>
 
-                        <Label  text="Book Description"  >
-                            <InputGroup placeholder="Book Category" className="pt-intent-primary" value={this.state.category} />
+                        <Label  text="Book Category"  >
+                            <InputGroup placeholder="Book Category" className="pt-intent-primary" value={this.state.category} onChange={this.handleCategoryChange.bind(this)} />
                         </Label>
 
                         <br />
                         <ButtonGroup minimal={true} large={true} className="pt-button-group">
-                            <Button className="pt-intent-primary">Update</Button>
-                            <Button className="pt-intent-primary">Add </Button>
+                            <Button className="pt-intent-primary" onClick={this.handleUpdate}>Update</Button>
+                            <Button className="pt-intent-primary" onClick={this.handleAdd}>Add </Button>
                             <Button className="pt-intent-danger">Delete</Button>
                         </ButtonGroup>
                     </FormGroup>
