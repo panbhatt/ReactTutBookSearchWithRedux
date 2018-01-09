@@ -1,18 +1,20 @@
 ### My React Journey  Samples with react 0.16
-### State managed by **FLUX**.
+### State managed by **REDUX**.
 
-*Note:* This is an exercise to make the UI same as that of, however managing state of the application with the help of FLUX framework. 
+*Note:* This is an exercise to make the UI same as that of, however managing state of the application with the help of REDUX framework. 
 
-This is a react based application where we are creating some sample components and displaying the UI with the help of **MUICSS** library components. 
+This is a react based application where we are creating some sample components and displaying the UI with the help of **BLUEPRINTJS** library components. 
+
+This project contains a number of enhancements over my existing REACT projects, as here i decided to use a template defined at [https://github.com/SophieDeBenedetto/catbook-redux] ](https://github.com/SophieDeBenedetto/catbook-redux]  "https://github.com/SophieDeBenedetto/catbook-redux] ")
+
+
 
 ## Steps
 1. Clone the Project
 2. Make sure that webpack is installed globally "npm install -g webpack" or "yarn global add webpack"
-3. Run "npm install http-server -g" so that we can run our react application with the bundled JS (by webpack) and html file. 
 3. run npm install
-4. run 'webpack' so that webpack can monitor and build the files at run-time.
-5. run "http-server" in the dist folder (in another shell/window) 
-6. open http://localhost:8080 and it will display a sample application. 
+4. run "npm start" 
+6. open http://localhost:3000 and it will display a sample application. 
   Image 1: 
    ![](https://github.com/panbhatt/ReactTutBookSearchWithFlux/blob/master/images/initial_image.JPG)
 
@@ -27,32 +29,27 @@ Click around to play with the various functionality available.
 - Add a new book in the table. 
 - Delete an existing book in the table. 
 
-### Code files Description  ###
-1. **App.js **-> This is the main reactjs file and everything is being loaded by this file. 
-2. **data.js** -> Since we are maintaing the state , this file will contain sample data that would be used initially to display the records in the table. 
-3. **constants.js** This file will contain all the constants that will be used. E.g. all the click events constants which are used to identify the **TYPE** of **ACTION** that is being performed by the user. 
-4. **stores.js** : This is the main file, which will be responsible for maintaining the STORE of the application (i.e. state). It is initialized with the data from data.js and contain all the functions that will be used to alter the state. It gets a DISPATCHER from actions file and register various internal functions on that ACTIONS/Events.
-5. **actions.js** This file contain creation of the dispatcher and responsible for delgation of events with the data to the Dispatcher. Dispatcher has handlers against each of the events (in stores.js) file which will get fired. 
-6. **home.js** This file acts as the root component of the application containing all the child components. Here we get the state initialized by the BookStore component in Stores.js file. Additionly, we will register listeners that will alter the state (not directly though) and every sub/child component will give automatically refreshed based on the props change.
+### Code files & Folder Description  ###
+1. **index.js**-> This is the main reactjs file and everything is being loaded by this file. Here are configuring the root Store and dispatching the initial loading of the books. Also we are wrapping our main component in PROVIDER that is provided by REDUX.
+2. **app.js** -> This is our main react file, that will contain Header/MainPage/footer.
+3. **src/actions** This folder will contain all the files related to  the actions like the type of actions and the actions that can be categorized by component and can be used by the components.
+4. **api/** : This folder will contain all the API related stuff, that our client application is suppose to call. In this project we have an sample express application that will serve us the initial book through server.js (which starts the express server). 
+5. **src/components** This folde will have all the components that are being used in the application. That includes BookEdit Component, BookList Component and Book Search component, Header/Footer. Every Book related component use  BLUEPRINTJS as the react library and use mapStateToProps and mapDispatchToProps to map REDUX staet and actiosn to the props of the component. 
+6. **src/reducers** This contains all the reducers in this case (only two). One will contain all the functions related to the Book (list) and one with the EditBook. This folder also contains the initial state and the Root Reducer. Root reducer will define as how our State is being mapped to the Key in the REDUX tree. 
 
   *NOTE* -> Some of the sub component will implement componentWillReceiveProps function to update the internal state of the component based upon what present in the new props.  
-
-### Component Description ###
-- **booklist.js** - This file will contain the table component that will be displayed on the left bottom side of the sample react application.It will dispatch all the actions to bookActions present in the actions.js file with the corressponding Event and Data associated with it.  
-- **CrudBook.js** - This file will contain all the CRUD related operations on the UI like Add/Delete/Update. This is present in the right side of the application. This will selectively show Add/Update/Delete button based upon the state of the components. It will dispatch all the actions to bookActions present in the actions.js file with the corressponding Event and Data associated with it. 
-- **searchbox.js** - This component will contain the search box present on the top left of the UI to filter down the search results based upon the SEARCHTEXT entered. It will dispatch all the actions to bookActions present in the actions.js file with the corressponding Event and Data associated with it.   
 
 ###Flow Description###
 
 ----------
 
 
-		user action/callback etc ->
-			component calls action ->
-			    dispatcher informes stores ->
-		    		stores set their state ->
-		        		state holding components are notified and update their state ->
-		          			all other components are updated through properties
+		user action on component etc ->
+			component calls actions passed by mapDispatchToProps (Present in action files)->
+			    Action dispatches to dispatcher with EVENT n DATA  ->
+		    		Reducer got executed, update the state ->
+		        		Provider, update state and call mapStateToProps ->
+		          			Components componentWillReceiveProps will upate state from props 
 
 ###Links:
 [https://medium.com/a-beginners-guide-for-webpack-2](https://medium.com/a-beginners-guide-for-webpack-2 "WebPack  2- Begineers Guide, Good one")
@@ -61,11 +58,11 @@ Click around to play with the various functionality available.
 
 [https://mxstbr.blog/2017/02/react-children-deepdive/](https://mxstbr.blog/2017/02/react-children-deepdive/ "React Children Understanding")
 
-###Flux: 
-[https://spapas.github.io/2015/06/05/comprehensive-react-flux-tutorial/](https://spapas.github.io/2015/06/05/comprehensive-react-flux-tutorial/ "React Flux part - 1")
+###REDUX: 
+[http://www.thegreatcodeadventure.com/building-a-simple-crud-app-with-react-redux-part-1/ ](http://www.thegreatcodeadventure.com/building-a-simple-crud-app-with-react-redux-part-1/  "http://www.thegreatcodeadventure.com/building-a-simple-crud-app-with-react-redux-part-1/ ")
 
-[https://spapas.github.io/2015/07/02/comprehensive-react-flux-tutorial-2/](https://spapas.github.io/2015/07/02/comprehensive-react-flux-tutorial-2/ "React Flux Part - 2")
+[http://www.github.com/SophieDeBenedetto/catbook-redux] ](http://www.github.com/SophieDeBenedetto/catbook-redux]  "http://www.github.com/SophieDeBenedetto/catbook-redux] ")
 
-[https://scotch.io/tutorials/creating-a-simple-shopping-cart-with-react-js-and-flux](https://scotch.io/tutorials/creating-a-simple-shopping-cart-with-react-js-and-flux "Flux with shopping Cart example")
+[http://blog.isquaredsoftware.com/series/practical-redux/](http://blog.isquaredsoftware.com/series/practical-redux/ "http://blog.isquaredsoftware.com/series/practical-redux/")
 
 
