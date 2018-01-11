@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/jest ./tests/*",
+    "coverage": "./node_modules/.bin/jest ./tests/* --coverage",
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel open:src lint:watch",
     "open:src": "babel-node tools/Server.js",
@@ -16,6 +17,18 @@
     "prebuild": "npm-run-all clean-public lint build:html",
     "build": "babel-node tools/build.js",
     "postbuild": "babel-node tools/publicServer.js"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFiles": [
+      "./tests/global.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "global.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(scss)$": "./node_modules/jest-css-modules"
+    }
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +42,7 @@
     "cheerio": "^1.0.0-rc.2",
     "colors": "^1.1.2",
     "compression": "^1.7.1",
+    "deep-freeze": "^0.0.1",
     "express": "^4.16.2",
     "immutable": "^3.8.2",
     "jest": "^22.0.5",
@@ -56,7 +70,7 @@
     "compression": "^1.6.1",
     "cross-env": "1.0.7",
     "css-loader": "0.23.1",
-    "enzyme": "2.2.0",
+    "enzyme": "^3.3.0",
     "eslint": "2.9.0",
     "eslint-plugin-import": "1.6.1",
     "eslint-plugin-react": "5.0.1",
@@ -66,12 +80,13 @@
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
-    "jsdom": "8.5.0",
+    "jest-css-modules": "^1.1.0",
+    "jsdom": "^11.5.1",
     "mocha": "2.4.5",
     "nock": "8.0.0",
     "npm-run-all": "1.8.0",
     "open": "0.0.5",
-    "react-addons-test-utils": "15.0.2",
+    "react-addons-test-utils": "^15.6.2",
     "redux-immutable-state-invariant": "^1.2.3",
     "redux-mock-store": "1.0.2",
     "rimraf": "2.5.2",
